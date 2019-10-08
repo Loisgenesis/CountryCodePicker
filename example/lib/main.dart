@@ -29,7 +29,11 @@ class _MyAppState extends State<MyApp> {
                       onChanged: print,
                       // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
                       initialSelection: 'IT',
-                      favorite: ['+39', 'FR']),
+                      favorite: ['+39', 'FR'],
+                    appBarColor: Colors.black54,
+                    bgColor: Colors.grey,
+                  inputTextStyle: TextStyle(color: Colors.white),
+                  iconColor: Colors.white,),
                   SizedBox(
                     width: 400,
                     height: 60,
@@ -41,6 +45,8 @@ class _MyAppState extends State<MyApp> {
                         showCountryOnly: true,
                         showOnlyCountryWhenClosed: true,
                         alignLeft: true,
+                        appBarColor: Colors.black54,
+                        bgColor: Colors.grey,
                       ),
                     ),
                   ),

@@ -23,7 +23,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   country_code_picker:
     path: ../
 

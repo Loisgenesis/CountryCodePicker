@@ -30,6 +30,10 @@ class CountryCodePicker extends StatefulWidget {
 
   /// shows the flag
   final bool showFlag;
+  final Color appBarColor;
+  final Color bgColor;
+  final TextStyle inputTextStyle;
+  final Color iconColor;
 
   CountryCodePicker(
       {this.onChanged,
@@ -43,7 +47,11 @@ class CountryCodePicker extends StatefulWidget {
       this.emptySearchBuilder,
       this.showOnlyCountryWhenClosed = false,
       this.alignLeft = false,
-      this.showFlag = true});
+      this.showFlag = true,
+      this.appBarColor,
+      this.bgColor,
+      this.inputTextStyle,
+      this.iconColor});
 
   @override
   State<StatefulWidget> createState() {
@@ -137,7 +145,11 @@ class _CountryCodePickerState extends State<CountryCodePicker> {
                   emptySearchBuilder: widget.emptySearchBuilder,
                   searchDecoration: widget.searchDecoration,
                   searchStyle: widget.searchStyle,
-                  showFlag: widget.showFlag);
+                  showFlag: widget.showFlag,
+              appBarColor: widget.appBarColor,
+              bgColor: widget.bgColor,
+              inputTextStyle: widget.inputTextStyle,
+              iconColor: widget.iconColor,);
             },
             fullscreenDialog: true))
         .then((e) {

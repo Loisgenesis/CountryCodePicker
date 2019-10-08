@@ -13,17 +13,25 @@ class SelectionDialog extends StatefulWidget {
   /// elements passed as favorite
   final List<CountryCode> favoriteElements;
 
-  SelectionDialog(this.elements, this.favoriteElements, {
-    Key key,
-    this.showCountryOnly,
-    this.emptySearchBuilder,
-    InputDecoration searchDecoration = const InputDecoration(),
-    this.searchStyle,
-    this.showFlag
-  }) :
-    assert(searchDecoration != null, 'searchDecoration must not be null!'),
-    this.searchDecoration = searchDecoration.copyWith(prefixIcon: Icon(Icons.search)),
-    super(key: key);
+  final Color appBarColor;
+  final Color bgColor;
+  final TextStyle inputTextStyle;
+  final Color iconColor;
+  SelectionDialog(this.elements, this.favoriteElements,
+      {Key key,
+      this.showCountryOnly,
+      this.emptySearchBuilder,
+      InputDecoration searchDecoration = const InputDecoration(),
+      this.searchStyle,
+      this.showFlag,
+      this.appBarColor,
+      this.bgColor,
+      this.inputTextStyle,
+      this.iconColor})
+      : assert(searchDecoration != null, 'searchDecoration must not be null!'),
+        this.searchDecoration =
+            searchDecoration.copyWith(prefixIcon: Icon(Icons.search,color: iconColor)),
+        super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SelectionDialogState();
@@ -34,51 +42,54 @@ class _SelectionDialogState extends State<SelectionDialog> {
   List<CountryCode> filteredElements;
 
   @override
-  Widget build(BuildContext context) => SimpleDialog(
-      title: Column(
-        children: <Widget>[
-          TextField(
-            style: widget.searchStyle,
-            decoration: widget.searchDecoration,
-            onChanged: _filterElements,
-          ),
-        ],
-      ),
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: ListView(
-            children: [
-              widget.favoriteElements.isEmpty
-                  ? const DecoratedBox(decoration: BoxDecoration())
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[]
-                        ..addAll(widget.favoriteElements
-                            .map(
-                              (f) => SimpleDialogOption(
-                                    child: _buildOption(f),
-                                    onPressed: () {
-                                      _selectItem(f);
-                                    },
-                                  ),
-                            )
-                            .toList())
-                        ..add(const Divider())),
-            ]..addAll(filteredElements.isEmpty
-                ? [_buildEmptySearchWidget(context)]
-                : filteredElements.map(
-                    (e) => SimpleDialogOption(
-                      key: Key(e.toLongString()),
-                      child: _buildOption(e),
-                      onPressed: () {
-                        _selectItem(e);
-                      },
-                    )))
-            )
-          ),
-        ],
+  Widget build(BuildContext context) => Scaffold(
+    backgroundColor: widget.bgColor,
+        appBar: AppBar(
+          elevation: 0,
+          title: Text("Country Code",),
+          backgroundColor: widget.appBarColor,
+        ),
+        body: SingleChildScrollView(
+         child: Column(
+           children: <Widget>[
+             TextField(
+               style: widget.searchStyle,
+               decoration: widget.searchDecoration,
+               onChanged: _filterElements,
+             ),
+             Container(
+                 width: MediaQuery.of(context).size.width,
+                 height: MediaQuery.of(context).size.height,
+                 child: ListView(
+                     children: [
+                       widget.favoriteElements.isEmpty
+                           ? const DecoratedBox(decoration: BoxDecoration())
+                           : Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: <Widget>[]
+                             ..addAll(widget.favoriteElements
+                                 .map(
+                                   (f) => SimpleDialogOption(
+                                 child: _buildOption(f),
+                                 onPressed: () {
+                                   _selectItem(f);
+                                 },
+                               ),
+                             )
+                                 .toList())
+                             ..add(const Divider())),
+                     ]..addAll(filteredElements.isEmpty
+                         ? [_buildEmptySearchWidget(context)]
+                         : filteredElements.map((e) => SimpleDialogOption(
+                       key: Key(e.toLongString()),
+                       child: _buildOption(e),
+                       onPressed: () {
+                         _selectItem(e);
+                       },
+                     ))))),
+           ],
+         ),
+        ),
       );
 
   Widget _buildOption(CountryCode e) {
@@ -87,16 +98,18 @@ class _SelectionDialogState extends State<SelectionDialog> {
       child: Flex(
         direction: Axis.horizontal,
         children: <Widget>[
-          widget.showFlag ? Flexible(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              child: Image.asset(
-                e.flagUri,
-                package: 'country_code_picker',
-                width: 32.0,
-              ),
-            ),
-          ) : Container(),
+          widget.showFlag
+              ? Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: Image.asset(
+                      e.flagUri,
+                      package: 'country_code_picker',
+                      width: 32.0,
+                    ),
+                  ),
+                )
+              : Container(),
           Expanded(
             flex: 4,
             child: Text(
@@ -104,6 +117,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                   ? e.toCountryStringOnly()
                   : e.toLongString(),
               overflow: TextOverflow.fade,
+              style: widget.inputTextStyle,
             ),
           ),
         ],
