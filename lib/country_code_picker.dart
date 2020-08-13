@@ -32,6 +32,8 @@ class CountryCodePicker extends StatefulWidget {
   final bool showFlag;
   final Color appBarColor;
   final Color bgColor;
+  final Color appBarTextColor;
+  final Color backButtonColor;
   final TextStyle inputTextStyle;
   final Color iconColor;
 
@@ -50,6 +52,8 @@ class CountryCodePicker extends StatefulWidget {
       this.showFlag = true,
       this.appBarColor,
       this.bgColor,
+       this.appBarTextColor,
+       this.backButtonColor,
       this.inputTextStyle,
       this.iconColor});
 
@@ -148,6 +152,8 @@ class _CountryCodePickerState extends State<CountryCodePicker> {
                   showFlag: widget.showFlag,
               appBarColor: widget.appBarColor,
               bgColor: widget.bgColor,
+                  appBarTextColor: widget.appBarTextColor,
+                        backButtonColor:widget.backButtonColor,                 
               inputTextStyle: widget.inputTextStyle,
               iconColor: widget.iconColor,);
             },
