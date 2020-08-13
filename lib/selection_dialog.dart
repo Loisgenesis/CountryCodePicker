@@ -15,6 +15,8 @@ class SelectionDialog extends StatefulWidget {
 
   final Color appBarColor;
   final Color bgColor;
+  final Color appBarTextColor;
+  final Color backButtonColor;
   final TextStyle inputTextStyle;
   final Color iconColor;
   SelectionDialog(this.elements, this.favoriteElements,
@@ -26,6 +28,8 @@ class SelectionDialog extends StatefulWidget {
       this.showFlag,
       this.appBarColor,
       this.bgColor,
+       this.appBarTextColor,
+       this.backButtonColor,
       this.inputTextStyle,
       this.iconColor})
       : assert(searchDecoration != null, 'searchDecoration must not be null!'),
@@ -46,7 +50,10 @@ class _SelectionDialogState extends State<SelectionDialog> {
     backgroundColor: widget.bgColor,
         appBar: AppBar(
           elevation: 0,
-          title: Text("Country Code",),
+          title: Text("Country Code",style:TextStyle(color:widget.appBarTextColor)),
+           leading: BackButton(
+          color: widget.backButtonColor,
+        ),
           backgroundColor: widget.appBarColor,
         ),
         body: SingleChildScrollView(
