@@ -98,7 +98,7 @@ class _CountryCodePickerState extends State<CountryCodePicker> {
                       child: Image.asset(
                         selectedItem.flagUri,
                         package: 'country_code_picker',
-                        width: 32.0,
+                        width: 25.0,
                       ),
                     ),
                   )
