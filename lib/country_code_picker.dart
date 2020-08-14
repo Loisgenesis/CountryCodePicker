@@ -93,7 +93,7 @@ class _CountryCodePickerState extends State<CountryCodePicker> {
                     fit: widget.alignLeft ? FlexFit.tight : FlexFit.loose,
                     child: Padding(
                       padding: widget.alignLeft
-                          ? const EdgeInsets.only(right: 16.0, left: 8.0)
+                          ? const EdgeInsets.only(right: 16.0, left: 0)
                           : const EdgeInsets.only(right: 16.0),
                       child: Image.asset(
                         selectedItem.flagUri,
